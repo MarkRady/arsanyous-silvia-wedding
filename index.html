@@ -120,6 +120,9 @@
   .edge .line { fill: none; stroke: var(--gold); stroke-width: .6; vector-effect: non-scaling-stroke; opacity: .8; }
   .stone-bg { padding-top: 8.5rem; }
   .cross { position: absolute; left: 50%; top: 6px; transform: translateX(-50%); width: 28px; height: 37px; z-index: 3; color: var(--gold); filter: drop-shadow(0 0 6px rgba(201,162,74,.55)); pointer-events: none; }
+  .cross.hero-cross { top: -50px; width: 26px; height: 34px; }
+  .cross.door-cross { top: calc(50% - min(46.5vw, 225px) - 42px); width: 26px; height: 34px; transition: opacity .5s; }
+  #doors.open .door-cross { opacity: 0; }
   /* Scroll progress line */
   #progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 70; transform-origin: 0 50%; transform: scaleX(var(--scroll, 0)); background: linear-gradient(90deg, var(--gold-dim), var(--gold-soft)); pointer-events: none; }
   html[dir=rtl] #progress { transform-origin: 100% 50%; }
@@ -137,7 +140,7 @@
   .names { font-family: var(--serif); font-style: italic; font-weight: 300; line-height: 1; letter-spacing: .01em; }
 
   /* ---------- Hero ---------- */
-  #hero { padding: 4.5rem 1.6rem 4rem; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+  #hero { padding: 5.5rem 1.6rem 4rem; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
   .hero-arch { position: relative; width: min(78%, 340px); margin: 0 auto; aspect-ratio: 2 / 3; clip-path: url(#archClip); background: var(--navy-2); }
   .hero-arch .px { position: absolute; inset: -12% 0; will-change: transform; }
   .hero-arch img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); animation: kb 16s ease-out forwards; }
@@ -297,6 +300,10 @@
     <path d="M4,150 L4,45 C4,21 24,6 50,2 C76,6 96,21 96,45 L96,150"/>
     <path d="M10,150 L10,47 C10,26 28,12 50,8 C72,12 90,26 90,47 L90,150" opacity=".45"/>
   </svg>
+  <svg class="cross door-cross" viewBox="0 0 24 32" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v26M4 12h16"/></g>
+          <g fill="currentColor"><circle cx="12" cy="3" r="1.8"/><circle cx="4" cy="12" r="1.8"/><circle cx="20" cy="12" r="1.8"/><circle cx="12" cy="12" r="2.4"/></g>
+        </svg>
   <div class="monogram">
     <div class="names"><span data-n="groom">Arsanyous</span><span class="amp">&amp;</span><span data-n="bride">Silvia</span></div>
   </div>
@@ -316,6 +323,10 @@
         <div class="hero-arch"><div class="px" data-px="0.1"><img src="assets/photos/p04.jpg" alt=""></div></div>
         <svg class="hero-ring" viewBox="0 0 100 150" preserveAspectRatio="none" aria-hidden="true" style="top:-11px">
           <path d="M0,150 L0,45 C0,21 20,6 50,0 C80,6 100,21 100,45 L100,150"/>
+        </svg>
+        <svg class="cross hero-cross" viewBox="0 0 24 32" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v26M4 12h16"/></g>
+          <g fill="currentColor"><circle cx="12" cy="3" r="1.8"/><circle cx="4" cy="12" r="1.8"/><circle cx="20" cy="12" r="1.8"/><circle cx="12" cy="12" r="2.4"/></g>
         </svg>
       </div>
       <div class="hero-text hero-seq">
