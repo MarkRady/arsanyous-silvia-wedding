@@ -155,7 +155,27 @@
   html[dir=rtl] .story-text::first-letter { font-size: 1em; float: none; padding: 0; color: inherit; }
   .verse { margin-top: 2rem; font-size: 1.15rem; color: var(--ink-soft); font-style: italic; }
   .verse .caps { display: block; margin-top: .5rem; font-size: .62rem; }
-  .rose { width: 110px; margin: 2.6rem auto 0; display: block; opacity: .9; }
+  .rose { width: 120px; margin: 2.6rem auto 0; display: block; opacity: .9; overflow: visible; }
+  .rose .rings circle { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .rose .petals { transform-origin: 60px 60px; opacity: 0; transform: scale(.6) rotate(-20deg); }
+  .rose .petals use, .rose .petals > g { transform-origin: 60px 60px; }
+  .rose .jewels circle { opacity: 0; transform-origin: center; transform-box: fill-box; }
+  .rose .core { transform-origin: 60px 60px; }
+  .reveal.in .rose .rings circle { animation: draw 1.6s ease-out forwards; }
+  .reveal.in .rose .rings circle:nth-child(2) { animation-delay: .25s; }
+  .reveal.in .rose .rings circle:nth-child(3) { animation-delay: .5s; }
+  .reveal.in .rose .petals { animation: bloom 1.4s cubic-bezier(.2,.8,.2,1) .6s forwards, turn 90s linear 2s infinite; }
+  .reveal.in .rose .jewels circle { animation: twinkle 3.6s ease-in-out infinite; }
+  .reveal.in .rose .jewels circle:nth-child(2) { animation-delay: .45s; } .reveal.in .rose .jewels circle:nth-child(3) { animation-delay: .9s; }
+  .reveal.in .rose .jewels circle:nth-child(4) { animation-delay: 1.35s; } .reveal.in .rose .jewels circle:nth-child(5) { animation-delay: 1.8s; }
+  .reveal.in .rose .jewels circle:nth-child(6) { animation-delay: 2.25s; } .reveal.in .rose .jewels circle:nth-child(7) { animation-delay: 2.7s; }
+  .reveal.in .rose .jewels circle:nth-child(8) { animation-delay: 3.15s; }
+  .reveal.in .rose .core { animation: glow 2.8s ease-in-out 1.2s infinite; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes bloom { to { opacity: 1; transform: scale(1) rotate(0deg); } }
+  @keyframes turn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes twinkle { 0%, 100% { opacity: .35; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.25); } }
+  @keyframes glow { 0%, 100% { fill-opacity: .5; r: 6; } 50% { fill-opacity: .95; r: 7.5; } }
 
   /* ---------- Countdown ---------- */
   .count { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; margin-top: 2rem; }
@@ -235,6 +255,7 @@
     .reveal, .hero-seq > * { opacity: 1; transform: none; }
     .hero-arch img { transform: none; }
     [data-px] { transform: none !important; }
+    .rose .rings circle { stroke-dashoffset: 0; } .rose .petals, .rose .jewels circle { opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -300,15 +321,19 @@
       <p class="verse"><span data-t="verse">Love is patient, love is kind.</span><span class="caps" data-t="verseRef">1 Corinthians 13:4</span></p>
       <svg class="rose" viewBox="0 0 120 120" aria-hidden="true">
         <g fill="none" stroke="#8f7435" stroke-width=".8">
-          <circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="42"/><circle cx="60" cy="60" r="18"/>
-          <g id="petal"><path d="M60 4 C70 20 70 40 60 60 C50 40 50 20 60 4z" fill="#c9a24a" fill-opacity=".18"/></g>
-          <use href="#petal" transform="rotate(45 60 60)"/><use href="#petal" transform="rotate(90 60 60)"/><use href="#petal" transform="rotate(135 60 60)"/>
-          <use href="#petal" transform="rotate(180 60 60)"/><use href="#petal" transform="rotate(225 60 60)"/><use href="#petal" transform="rotate(270 60 60)"/><use href="#petal" transform="rotate(315 60 60)"/>
-          <g fill-opacity=".5">
+          <g class="rings">
+            <circle cx="60" cy="60" r="56" pathLength="1"/><circle cx="60" cy="60" r="42" pathLength="1"/><circle cx="60" cy="60" r="18" pathLength="1"/>
+          </g>
+          <g class="petals">
+            <g id="petal"><path d="M60 4 C70 20 70 40 60 60 C50 40 50 20 60 4z" fill="#c9a24a" fill-opacity=".18"/></g>
+            <use href="#petal" transform="rotate(45 60 60)"/><use href="#petal" transform="rotate(90 60 60)"/><use href="#petal" transform="rotate(135 60 60)"/>
+            <use href="#petal" transform="rotate(180 60 60)"/><use href="#petal" transform="rotate(225 60 60)"/><use href="#petal" transform="rotate(270 60 60)"/><use href="#petal" transform="rotate(315 60 60)"/>
+          </g>
+          <g class="jewels" fill-opacity=".5">
             <circle cx="60" cy="11" r="4" fill="rgb(160,40,60)"/><circle cx="95" cy="25" r="4" fill="rgb(50,90,180)"/><circle cx="109" cy="60" r="4" fill="rgb(225,165,55)"/><circle cx="95" cy="95" r="4" fill="rgb(40,125,85)"/>
             <circle cx="60" cy="109" r="4" fill="rgb(160,40,60)"/><circle cx="25" cy="95" r="4" fill="rgb(50,90,180)"/><circle cx="11" cy="60" r="4" fill="rgb(225,165,55)"/><circle cx="25" cy="25" r="4" fill="rgb(40,125,85)"/>
           </g>
-          <circle cx="60" cy="60" r="6" fill="#c9a24a" fill-opacity=".6"/>
+          <circle class="core" cx="60" cy="60" r="6" fill="#c9a24a" fill-opacity=".6"/>
         </g>
       </svg>
     </div>
