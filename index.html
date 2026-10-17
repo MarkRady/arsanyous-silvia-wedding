@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Khaled & Basma — Wedding</title>
-<meta name="description" content="You are invited to the wedding of Khaled & Basma.">
+<title>Arsanyous & Silvia — Wedding</title>
+<meta name="description" content="You are invited to the wedding of Arsanyous & Silvia.">
 <meta name="theme-color" content="#ece0cb">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #ece0cb;
     --page: #f0e7d4;
     --card: #f6efe0;
     --card-2: #efe5cf;
+    --stone: #d9c7a6;
     --gold: #b8923e;
     --gold-light: #d8bf7c;
     --gold-deep: #7c6131;
     --gold-line: #c9ad6b;
+    --navy: #1f2a44;
     --ink: #5a4424;
     --ink-soft: #8a7352;
     --serif: 'Cormorant Garamond', Georgia, serif;
@@ -33,51 +35,64 @@
   }
   body.locked { overflow: hidden; height: 100dvh; }
 
+  /* ---- Arabic ---- */
+  html[dir=rtl] body { font-family: 'Tajawal', 'Amiri', sans-serif; }
+  html[dir=rtl] h2, html[dir=rtl] .venue { font-family: 'Amiri', serif; }
+  html[dir=rtl] .names { font-family: 'Aref Ruqaa', 'Amiri', serif; font-size: clamp(2.6rem, 11vw, 3.6rem); line-height: 1.5; }
+  html[dir=rtl] .eyebrow, html[dir=rtl] .sub, html[dir=rtl] .city, html[dir=rtl] .count small,
+  html[dir=rtl] .form label.lbl, html[dir=rtl] .form legend, html[dir=rtl] .choice, html[dir=rtl] .btn, html[dir=rtl] .send,
+  html[dir=rtl] footer, html[dir=rtl] .date-dots, html[dir=rtl] .hero-date, html[dir=rtl] .venue-time, html[dir=rtl] .venue-label { letter-spacing: 0; }
+  html[dir=rtl] .eyebrow { font-size: .95rem; font-weight: 500; }
+  html[dir=rtl] .sub { font-size: 1rem; }
+  html[dir=rtl] .hero-date { font-size: 1.4rem; }
+  html[dir=rtl] .story p.text, html[dir=rtl] #thanks p.msg { font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 2; }
+  html[dir=rtl] .tl time { text-align: left; padding-left: 1rem; padding-right: 0; }
+  html[dir=rtl] .tl span { text-align: right; padding-right: 1rem; padding-left: 0; }
+  html[dir=rtl] .form { text-align: right; }
+  html[dir=rtl] .count b { font-family: 'Cormorant Garamond', serif; }
+
+  /* ---- Language toggle ---- */
+  #lang {
+    position: fixed; top: 14px; inset-inline-end: 14px; z-index: 60; display: flex; gap: 2px;
+    background: rgba(246,239,224,.9); border: 1px solid var(--gold-line); border-radius: 999px; padding: 3px;
+    backdrop-filter: blur(6px); box-shadow: 0 8px 20px -12px rgba(90,68,36,.6);
+  }
+  #lang button {
+    border: 0; background: transparent; font-family: 'Tajawal', 'Cormorant Garamond', serif; font-weight: 700; font-size: .8rem;
+    color: var(--ink-soft); padding: .35rem .75rem; border-radius: 999px; cursor: pointer; letter-spacing: .05em;
+  }
+  #lang button[aria-pressed=true] { background: var(--gold); color: #fff8e6; }
+  #lang button:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 1px; }
+
   /* ================= Entry video ================= */
-  #entry {
-    position: fixed; inset: 0; z-index: 100; background: #f1ece2; cursor: pointer;
-    transition: opacity 1s ease, visibility 0s linear 1s;
-  }
+  #entry { position: fixed; inset: 0; z-index: 100; background: #f1ece2; cursor: pointer; transition: opacity 1s ease, visibility 0s linear 1s; }
   #entry.done { opacity: 0; visibility: hidden; pointer-events: none; }
-  #entry video {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-  }
+  #entry video { width: 100%; height: 100%; object-fit: cover; display: block; }
   #entry .hint {
     position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
     text-align: center; letter-spacing: .4em; font-size: .78rem; color: #9b8763;
-    text-shadow: 0 1px 2px rgba(255,255,255,.8);
-    animation: hint 2.2s ease-in-out infinite; pointer-events: none;
-    transition: opacity .3s;
+    text-shadow: 0 1px 2px rgba(255,255,255,.8); animation: hint 2.2s ease-in-out infinite; pointer-events: none; transition: opacity .3s;
   }
+  #entry .hint span { display: block; }
+  #entry .hint .ar { font-family: 'Tajawal', sans-serif; letter-spacing: .1em; font-size: .95rem; margin-top: .3rem; }
   #entry.playing .hint { opacity: 0; }
   @keyframes hint { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
 
   /* ================= Page column ================= */
-  .page {
-    max-width: 590px; margin: 0 auto; background: var(--page); position: relative;
-    box-shadow: 0 0 60px -10px rgba(90,68,36,.18);
-  }
+  .page { max-width: 590px; margin: 0 auto; background: var(--page); position: relative; box-shadow: 0 0 60px -10px rgba(90,68,36,.18); }
   section { padding: 5rem 2rem; text-align: center; position: relative; }
-
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
   .reveal.in { opacity: 1; transform: none; }
 
   .eyebrow { letter-spacing: .4em; font-size: .78rem; color: var(--gold-deep); font-weight: 600; }
-  .rule {
-    display: flex; align-items: center; justify-content: center; gap: .6rem; margin: 1rem auto;
-    color: var(--gold-line);
-  }
+  .rule { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: 1rem auto; color: var(--gold-line); }
   .rule::before, .rule::after { content: ""; width: 48px; height: 1px; background: currentColor; }
   .rule i { width: 7px; height: 7px; border: 1px solid var(--gold); transform: rotate(45deg); display: block; }
   h2 { font-family: var(--heading); font-weight: 400; font-size: 2.2rem; line-height: 1.2; color: var(--gold-deep); margin: 0 0 .6rem; }
   .sub { font-size: .86rem; letter-spacing: .22em; color: var(--ink-soft); }
   .date-dots { letter-spacing: .32em; color: var(--gold-deep); font-size: .95rem; margin-top: 1.6rem; }
 
-  /* Section divider: line – ornament – line with light sweep */
-  .divider {
-    display: flex; align-items: center; justify-content: center; gap: .8rem; width: 56%; margin: 0 auto;
-    color: var(--gold-line); position: relative;
-  }
+  .divider { display: flex; align-items: center; justify-content: center; gap: .8rem; width: 56%; margin: 0 auto; color: var(--gold-line); position: relative; }
   .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, currentColor); }
   .divider::after { background: linear-gradient(90deg, currentColor, transparent); }
   .divider svg { width: 26px; height: 26px; color: var(--gold); flex: none; }
@@ -90,48 +105,52 @@
 
   /* ================= Hero ================= */
   #hero { padding: 0 0 4rem; }
-  .frame {
-    width: 100%; aspect-ratio: 9 / 16; max-height: 90vh; overflow: hidden; position: relative;
-    border-radius: 0 0 20px 20px; background: #d9c7a2;
-    box-shadow: 0 30px 50px -30px rgba(90,68,36,.6);
-  }
-  .frame video, .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame { width: 100%; aspect-ratio: 9 / 16; max-height: 90vh; overflow: hidden; position: relative; border-radius: 0 0 20px 20px; background: #d9c7a2; box-shadow: 0 30px 50px -30px rgba(90,68,36,.6); }
+  .frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .wedding-of { margin-top: 3rem; }
-  .names { font-family: var(--script); color: var(--gold-deep); font-size: clamp(3.6rem, 16vw, 5.2rem); line-height: 1.05;
-    text-shadow: 0 2px 2px rgba(255,255,255,.5), 0 8px 18px rgba(90,68,36,.18); }
-  .names .amp {
-    display: flex; align-items: center; justify-content: center; gap: 1rem; margin: .4rem auto;
-    font-family: var(--serif); font-size: 1.5rem; color: var(--gold); text-shadow: none; width: 60%;
-  }
+  .names { font-family: var(--script); color: var(--gold-deep); font-size: clamp(3.6rem, 16vw, 5.2rem); line-height: 1.05; text-shadow: 0 2px 2px rgba(255,255,255,.5), 0 8px 18px rgba(90,68,36,.18); }
+  .names .amp { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: .4rem auto; font-family: var(--serif); font-size: 1.5rem; color: var(--gold); text-shadow: none; width: 60%; }
   .names .amp::before, .names .amp::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-line)); }
   .names .amp::after { background: linear-gradient(90deg, var(--gold-line), transparent); }
   .hero-date { font-size: 1.6rem; letter-spacing: .3em; color: var(--gold-deep); margin-top: 1.6rem; font-weight: 500; }
 
-  /* ================= Countdown ================= */
-  .heart {
-    width: 60px; height: 60px; margin: 1.6rem auto 2.2rem; border-radius: 50%;
-    background: var(--card); display: grid; place-items: center;
-    box-shadow: 0 10px 22px -10px rgba(90,68,36,.45), inset 0 0 0 1px var(--gold-line), 0 0 0 4px var(--page);
-    animation: ringPulse 2.6s ease-in-out infinite;
+  /* ================= Story (arch slideshow) ================= */
+  .story { padding-top: 4rem; }
+  .arch-wrap { position: relative; width: min(100%, 360px); margin: 2rem auto 0; }
+  .arch {
+    position: relative; width: 100%; aspect-ratio: 2 / 3; clip-path: url(#archClip); overflow: hidden; background: var(--stone);
   }
+  .arch img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 1.6s ease; }
+  .arch img.on { opacity: 1; animation: kb 7s ease-out forwards; }
+  @keyframes kb { from { transform: scale(1.06) translateY(0); } to { transform: scale(1.14) translateY(-2%); } }
+  .arch-wrap .outline { position: absolute; inset: -10px; pointer-events: none; color: var(--gold-line); }
+  .arch-wrap .outline path { fill: none; stroke: currentColor; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .arch-wrap .outline .inner { stroke-dasharray: 3 4; opacity: .7; }
+  .glass { width: 150px; margin: 2.4rem auto 0; display: block; }
+  .story p.text { max-width: 36ch; margin: 1.6rem auto 0; font-size: 1.2rem; line-height: 1.75; color: var(--ink); font-style: italic; }
+  .verse { margin-top: 1.8rem; color: var(--gold-deep); font-size: 1.05rem; }
+  .verse small { display: block; letter-spacing: .25em; font-size: .68rem; color: var(--ink-soft); margin-top: .4rem; }
+  html[dir=rtl] .verse { font-family: 'Amiri', serif; font-size: 1.3rem; }
+  html[dir=rtl] .verse small { letter-spacing: 0; font-size: .85rem; }
+
+  /* ================= Countdown ================= */
+  .heart { width: 60px; height: 60px; margin: 1.6rem auto 2.2rem; border-radius: 50%; background: var(--card); display: grid; place-items: center;
+    box-shadow: 0 10px 22px -10px rgba(90,68,36,.45), inset 0 0 0 1px var(--gold-line), 0 0 0 4px var(--page); animation: ringPulse 2.6s ease-in-out infinite; }
   .heart svg { width: 26px; height: 26px; animation: heartPulse 1.6s ease-in-out infinite; }
   @keyframes heartPulse { 0%,100% { transform: scale(1); } 30% { transform: scale(1.14); } 50% { transform: scale(1); } 65% { transform: scale(1.08); } }
   @keyframes ringPulse { 0%,100% { box-shadow: 0 10px 22px -10px rgba(90,68,36,.45), inset 0 0 0 1px var(--gold-line), 0 0 0 0 rgba(184,146,62,.35); }
                          60% { box-shadow: 0 10px 22px -10px rgba(90,68,36,.45), inset 0 0 0 1px var(--gold-line), 0 0 0 14px rgba(184,146,62,0); } }
   .count { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; max-width: 400px; margin: 0 auto; }
-  .count div {
-    position: relative; border-radius: 16px; padding: 1.4rem .5rem 1.1rem;
-    background: linear-gradient(160deg, var(--card), var(--card-2));
-    border: 1px solid var(--gold-line);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 0 rgba(184,146,62,.15), 0 14px 26px -18px rgba(90,68,36,.5);
-    animation: gemGlow 3.2s ease-in-out infinite;
-  }
+  .count div { position: relative; border-radius: 16px; padding: 1.4rem .5rem 1.1rem; background: linear-gradient(160deg, var(--card), var(--card-2)); border: 1px solid var(--gold-line);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 0 rgba(184,146,62,.15), 0 14px 26px -18px rgba(90,68,36,.5); animation: gemGlow 3.2s ease-in-out infinite; }
   .count div:nth-child(2) { animation-delay: .8s; } .count div:nth-child(3) { animation-delay: 1.6s; } .count div:nth-child(4) { animation-delay: 2.4s; }
   @keyframes gemGlow { 0%,100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 0 rgba(184,146,62,.15), 0 14px 26px -18px rgba(90,68,36,.5), 0 0 0 rgba(216,191,124,0); }
                        50% { box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 0 rgba(184,146,62,.25), 0 14px 26px -18px rgba(90,68,36,.5), 0 0 22px rgba(216,191,124,.55); } }
   .count b { display: block; font-weight: 500; font-size: 2.6rem; line-height: 1; color: var(--gold-deep); font-variant-numeric: tabular-nums; }
   .count small { display: block; margin-top: .6rem; font-size: .68rem; letter-spacing: .34em; color: var(--gold-deep); font-weight: 600; }
+  html[dir=rtl] .count small { font-size: .95rem; }
   .count-note { font-style: italic; color: var(--ink-soft); margin-top: 1.2rem; font-size: 1.1rem; }
+  html[dir=rtl] .count-note, html[dir=rtl] .note { font-style: normal; }
 
   /* ================= Timeline ================= */
   .tl { list-style: none; max-width: 340px; margin: 2.6rem auto 0; position: relative; }
@@ -139,10 +158,7 @@
   .tl li { display: grid; grid-template-columns: 1fr 40px 1fr; align-items: center; min-height: 78px; }
   .tl time { text-align: right; padding-right: 1rem; letter-spacing: .14em; color: var(--gold-deep); font-size: 1.05rem; }
   .tl span { text-align: left; padding-left: 1rem; font-size: 1.15rem; color: var(--ink); }
-  .tl i {
-    width: 12px; height: 12px; margin: 0 auto; border-radius: 50%; background: var(--page);
-    border: 1px solid var(--gold); position: relative; z-index: 1; display: grid; place-items: center;
-  }
+  .tl i { width: 12px; height: 12px; margin: 0 auto; border-radius: 50%; background: var(--page); border: 1px solid var(--gold); position: relative; z-index: 1; display: grid; place-items: center; }
   .tl li.key i { width: 30px; height: 30px; background: var(--card); box-shadow: 0 6px 12px -6px rgba(90,68,36,.5), 0 0 0 4px var(--page); }
   .tl li.key i svg { width: 14px; height: 14px; color: var(--gold); }
 
@@ -154,59 +170,63 @@
   .venue { font-family: var(--heading); font-size: 1.6rem; margin-top: .6rem; line-height: 1.25; color: var(--gold-deep); max-width: 22ch; margin-inline: auto; }
   .city { letter-spacing: .32em; font-size: .74rem; color: var(--gold-deep); margin-top: .4rem; font-weight: 600; }
   .addr { margin-top: 1.4rem; color: var(--ink-soft); font-size: 1.05rem; }
-  .btn {
-    display: inline-block; margin-top: 1.6rem; padding: .9rem 2.4rem; border-radius: 999px; position: relative; overflow: hidden;
+  .btn { display: inline-block; margin-top: 1.6rem; padding: .9rem 2.4rem; border-radius: 999px; position: relative; overflow: hidden;
     border: 1px solid var(--gold); color: var(--gold-deep); text-decoration: none; background: var(--card);
-    letter-spacing: .3em; font-size: .74rem; font-weight: 700; font-family: inherit; cursor: pointer;
-    transition: background .25s, color .25s; box-shadow: 0 8px 18px -12px rgba(90,68,36,.6);
-  }
+    letter-spacing: .3em; font-size: .74rem; font-weight: 700; font-family: inherit; cursor: pointer; transition: background .25s, color .25s; box-shadow: 0 8px 18px -12px rgba(90,68,36,.6); }
+  html[dir=rtl] .btn { font-size: .95rem; }
   .btn:hover, .btn:focus-visible { background: var(--gold); color: #fff8e6; outline: none; }
   .note { font-style: italic; color: var(--ink-soft); margin-top: 1.6rem; font-size: 1.1rem; }
 
+  /* ================= Gallery ================= */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; margin-top: 2.2rem; }
+  .grid button {
+    border: 0; padding: 0; background: var(--stone); cursor: pointer; aspect-ratio: 2 / 3; overflow: hidden;
+    clip-path: url(#archClip); display: block; width: 100%;
+  }
+  .grid button img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+  .grid button:hover img, .grid button:focus-visible img { transform: scale(1.06); }
+  .grid button:focus-visible { outline: 2px solid var(--gold-deep); }
+  #lightbox { position: fixed; inset: 0; z-index: 90; background: rgba(31,42,68,.92); display: none; align-items: center; justify-content: center; padding: 1rem; }
+  #lightbox.open { display: flex; }
+  #lightbox img { max-width: 100%; max-height: 86vh; border-radius: 6px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.7); }
+  #lightbox button { position: absolute; border: 0; background: rgba(246,239,224,.14); color: #f6efe0; width: 46px; height: 46px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; }
+  #lightbox button svg { width: 20px; height: 20px; }
+  #lightbox .close { top: 16px; right: 16px; }
+  #lightbox .prev { left: 10px; top: 50%; transform: translateY(-50%); }
+  #lightbox .next { right: 10px; top: 50%; transform: translateY(-50%); }
+  #lightbox .counter { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; color: #d8bf7c; letter-spacing: .3em; font-size: .8rem; }
+
   /* ================= RSVP ================= */
-  .form {
-    background: linear-gradient(170deg, var(--card), var(--card-2)); border-radius: 22px; padding: 2.2rem 1.5rem; margin-top: 2rem; text-align: left;
-    border: 1px solid var(--gold-line);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 24px 44px -28px rgba(90,68,36,.6);
-  }
+  .form { background: linear-gradient(170deg, var(--card), var(--card-2)); border-radius: 22px; padding: 2.2rem 1.5rem; margin-top: 2rem; text-align: left; border: 1px solid var(--gold-line);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 24px 44px -28px rgba(90,68,36,.6); }
   .form label.lbl, .form legend { display: block; letter-spacing: .28em; font-size: .7rem; color: var(--gold-deep); margin-bottom: .6rem; font-weight: 700; }
-  .form input[type=text], .form textarea {
-    width: 100%; font-family: inherit; font-size: 1.1rem; color: var(--ink);
-    background: #fcf8ef; border: 1px solid var(--gold-line); border-radius: 12px; padding: .9rem 1rem; margin-bottom: 1.4rem;
-  }
+  html[dir=rtl] .form label.lbl, html[dir=rtl] .form legend { font-size: .95rem; }
+  .form input[type=text], .form textarea { width: 100%; font-family: inherit; font-size: 1.1rem; color: var(--ink); background: #fcf8ef; border: 1px solid var(--gold-line); border-radius: 12px; padding: .9rem 1rem; margin-bottom: 1.4rem; }
   .form textarea { min-height: 120px; resize: vertical; }
   .form input:focus, .form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,62,.2); }
   fieldset { border: 0; margin-bottom: 1.4rem; }
-  .choice { display: flex; align-items: center; gap: .9rem; background: #fcf8ef; border: 1px solid var(--gold-line);
-    border-radius: 12px; padding: .85rem 1rem; margin-bottom: .6rem; cursor: pointer; letter-spacing: .22em; font-size: .8rem; font-weight: 700; color: var(--gold-deep); }
+  .choice { display: flex; align-items: center; gap: .9rem; background: #fcf8ef; border: 1px solid var(--gold-line); border-radius: 12px; padding: .85rem 1rem; margin-bottom: .6rem; cursor: pointer; letter-spacing: .22em; font-size: .8rem; font-weight: 700; color: var(--gold-deep); }
+  html[dir=rtl] .choice { font-size: 1rem; }
   .choice:has(input:checked) { border-color: var(--gold); background: #fbf4e4; }
   .choice input { accent-color: var(--gold-deep); width: 16px; height: 16px; }
-  .send {
-    width: 100%; border: 0; border-radius: 12px; padding: 1.05rem; cursor: pointer; position: relative; overflow: hidden;
-    font-family: inherit; letter-spacing: .32em; font-size: .8rem; font-weight: 700; color: #fff8e6;
-    background: linear-gradient(90deg, #a98433, #d4b45f 50%, #a98433);
-    box-shadow: 0 12px 22px -12px rgba(124,97,49,.8);
-  }
-  .shine::after {
-    content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%;
-    background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
-    transform: skewX(-20deg); animation: shine 3.4s ease-in-out infinite;
-  }
+  .send { width: 100%; border: 0; border-radius: 12px; padding: 1.05rem; cursor: pointer; position: relative; overflow: hidden; font-family: inherit; letter-spacing: .32em; font-size: .8rem; font-weight: 700; color: #fff8e6;
+    background: linear-gradient(90deg, #a98433, #d4b45f 50%, #a98433); box-shadow: 0 12px 22px -12px rgba(124,97,49,.8); }
+  html[dir=rtl] .send { font-size: 1.05rem; }
+  .shine::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); transform: skewX(-20deg); animation: shine 3.4s ease-in-out infinite; }
   @keyframes shine { 0% { left: -60%; } 40%,100% { left: 130%; } }
   .send:focus-visible, .btn:focus-visible { outline: 3px solid rgba(184,146,62,.45); outline-offset: 2px; }
   .err { color: #9a3b2c; font-size: .95rem; margin-top: -.9rem; margin-bottom: 1rem; display: none; }
 
   /* ================= Thank you ================= */
   #thanks .names { font-size: clamp(2.6rem, 11vw, 3.4rem); margin-top: .6rem; }
+  html[dir=rtl] #thanks .names { font-size: clamp(2rem, 9vw, 2.8rem); }
   #thanks p.msg { max-width: 36ch; margin: 1.2rem auto 0; color: var(--ink-soft); font-size: 1.15rem; }
   footer { padding: 2rem 2rem 3.5rem; text-align: center; letter-spacing: .32em; font-size: .7rem; color: var(--gold-deep); font-weight: 600; }
+  html[dir=rtl] footer { font-size: .95rem; }
 
   /* ================= Floating buttons ================= */
-  .fab {
-    position: fixed; bottom: 24px; width: 50px; height: 50px; border-radius: 50%; z-index: 50;
-    background: #fbf7ee; border: 1px solid rgba(184,146,62,.25); cursor: pointer; display: grid; place-items: center;
-    box-shadow: 0 10px 24px -10px rgba(90,68,36,.55); color: var(--gold-deep);
-  }
+  .fab { position: fixed; bottom: 24px; width: 50px; height: 50px; border-radius: 50%; z-index: 50; background: #fbf7ee; border: 1px solid rgba(184,146,62,.25); cursor: pointer; display: grid; place-items: center;
+    box-shadow: 0 10px 24px -10px rgba(90,68,36,.55); color: var(--gold-deep); }
   .fab svg { width: 18px; height: 18px; }
   #play-btn { left: 20px; }
   #music-btn { right: 20px; border: 2px solid var(--gold-light); }
@@ -222,17 +242,32 @@
     *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; }
+    .arch img.on { transform: none; }
   }
 </style>
 </head>
 <body class="locked">
+
+<!-- Pointed-arch clip path, shared by story frame and gallery tiles -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="archClip" clipPathUnits="objectBoundingBox">
+      <path d="M0,1 L0,0.30 C0,0.14 0.20,0.04 0.5,0 C0.80,0.04 1,0.14 1,0.30 L1,1 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<div id="lang" role="group" aria-label="Language">
+  <button type="button" data-lang="en" aria-pressed="true">EN</button>
+  <button type="button" data-lang="ar" aria-pressed="false">عربي</button>
+</div>
 
 <!-- ===== Entry video ===== -->
 <div id="entry" role="button" tabindex="0" aria-label="Open invitation">
   <video id="entry-video" playsinline muted preload="auto" poster="assets/envelope-poster.jpg">
     <source src="assets/envelope.mp4" type="video/mp4">
   </video>
-  <div class="hint">TAP TO OPEN</div>
+  <div class="hint"><span>TAP TO OPEN</span><span class="ar">اضغط لفتح الدعوة</span></div>
 </div>
 
 <audio id="music" loop preload="auto"></audio>
@@ -247,81 +282,124 @@
       </video>
     </div>
     <div class="reveal" style="padding: 0 2rem">
-      <p class="eyebrow wedding-of">THE WEDDING OF</p>
+      <p class="eyebrow wedding-of" data-t="weddingOf">THE WEDDING OF</p>
       <div class="rule"><i></i></div>
       <h1 class="names">
-        <span data-cfg="groom">Khaled</span>
+        <span data-n="groom">Arsanyous</span>
         <span class="amp">&amp;</span>
-        <span data-cfg="bride">Basma</span>
+        <span data-n="bride">Silvia</span>
       </h1>
-      <p class="hero-date" data-cfg="dateShort">10.12.2026</p>
+      <p class="hero-date" data-t="dateShort">22.11.2026</p>
       <div class="rule"><i></i></div>
     </div>
   </section>
 
+  <!-- ===== Story ===== -->
+  <section id="story" class="story reveal">
+    <p class="eyebrow" data-t="storyEyebrow">OUR STORY</p>
+    <div class="rule"><i></i></div>
+    <h2 data-t="storyTitle">Two Hearts, One Light</h2>
+
+    <div class="arch-wrap">
+      <div class="arch" id="slides" aria-hidden="true"></div>
+      <svg class="outline" viewBox="0 0 100 150" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,150 L0,45 C0,21 20,6 50,0 C80,6 100,21 100,45 L100,150 Z"/>
+        <path class="inner" d="M3,150 L3,46 C3,24 22,9.5 50,3.5 C78,9.5 97,24 97,46 L97,150 Z"/>
+      </svg>
+    </div>
+
+    <!-- stained-glass rose ornament -->
+    <svg class="glass" viewBox="0 0 120 120" aria-hidden="true">
+      <g fill="none" stroke="#b8923e" stroke-width=".8">
+        <circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="42"/><circle cx="60" cy="60" r="18"/>
+        <g id="petal"><path d="M60 4 C70 20 70 40 60 60 C50 40 50 20 60 4z" fill="#c9a24a" fill-opacity=".22"/></g>
+        <use href="#petal" transform="rotate(45 60 60)"/><use href="#petal" transform="rotate(90 60 60)"/><use href="#petal" transform="rotate(135 60 60)"/>
+        <use href="#petal" transform="rotate(180 60 60)"/><use href="#petal" transform="rotate(225 60 60)"/><use href="#petal" transform="rotate(270 60 60)"/><use href="#petal" transform="rotate(315 60 60)"/>
+        <g fill-opacity=".35">
+          <circle cx="60" cy="11" r="4" fill="#8c2f3a"/><circle cx="95" cy="25" r="4" fill="#1f3f7a"/><circle cx="109" cy="60" r="4" fill="#c99b2a"/><circle cx="95" cy="95" r="4" fill="#2d6b45"/>
+          <circle cx="60" cy="109" r="4" fill="#8c2f3a"/><circle cx="25" cy="95" r="4" fill="#1f3f7a"/><circle cx="11" cy="60" r="4" fill="#c99b2a"/><circle cx="25" cy="25" r="4" fill="#2d6b45"/>
+        </g>
+        <circle cx="60" cy="60" r="6" fill="#b8923e" fill-opacity=".5"/>
+      </g>
+    </svg>
+
+    <p class="text" data-t="storyText">Between two arches of light, two hearts found their way to each other. In a church that has heard a thousand prayers, ours was answered: to walk this road together, hand in hand, from this day to forever.</p>
+    <p class="verse"><span data-t="verse">Love is patient, love is kind.</span><small data-t="verseRef">1 CORINTHIANS 13:4</small></p>
+  </section>
+
+  <div class="divider"><span class="light"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="12" cy="12" r="3.5"/><path d="M12 1.5v5M12 17.5v5M1.5 12h5M17.5 12h5M4.6 4.6l3.5 3.5M15.9 15.9l3.5 3.5M4.6 19.4l3.5-3.5M15.9 8.1l3.5-3.5"/></svg></div>
+
   <!-- ===== Countdown ===== -->
   <section id="countdown" class="reveal">
-    <p class="eyebrow">COUNTDOWN</p>
+    <p class="eyebrow" data-t="countEyebrow">COUNTDOWN</p>
     <div class="rule"><i></i></div>
-    <h2>Until Our Day</h2>
-    <p class="sub">THE MOMENT WE'VE BEEN WAITING FOR</p>
+    <h2 data-t="countTitle">Until Our Day</h2>
+    <p class="sub" data-t="countSub">THE MOMENT WE'VE BEEN WAITING FOR</p>
     <div class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8bf7c"/><stop offset="1" stop-color="#8c6a22"/></linearGradient></defs><path fill="url(#hg)" d="M12 21s-7-4.6-9.3-9A5.2 5.2 0 0 1 12 6.1 5.2 5.2 0 0 1 21.3 12C19 16.4 12 21 12 21z"/></svg></div>
     <div class="count" aria-live="polite">
-      <div><b id="d">00</b><small>DAYS</small></div>
-      <div><b id="h">00</b><small>HOURS</small></div>
-      <div><b id="m">00</b><small>MINUTES</small></div>
-      <div><b id="s">00</b><small>SECONDS</small></div>
+      <div><b id="d">00</b><small data-t="days">DAYS</small></div>
+      <div><b id="h">00</b><small data-t="hours">HOURS</small></div>
+      <div><b id="m">00</b><small data-t="minutes">MINUTES</small></div>
+      <div><b id="s">00</b><small data-t="seconds">SECONDS</small></div>
     </div>
-    <p class="date-dots" data-cfg="dateDots">10 · 12 · 2026</p>
+    <p class="date-dots" data-t="dateDots">22 · 11 · 2026</p>
     <div class="rule"><i></i></div>
-    <p class="count-note">Every second brings us closer to forever.</p>
+    <p class="count-note" data-t="countNote">Every second brings us closer to forever.</p>
   </section>
 
   <div class="divider"><span class="light"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="12" cy="12" r="3.5"/><path d="M12 1.5v5M12 17.5v5M1.5 12h5M17.5 12h5M4.6 4.6l3.5 3.5M15.9 15.9l3.5 3.5M4.6 19.4l3.5-3.5M15.9 8.1l3.5-3.5"/></svg></div>
 
   <!-- ===== Timeline ===== -->
   <section id="timeline" class="reveal">
-    <p class="eyebrow">OUR WEDDING DAY</p>
+    <p class="eyebrow" data-t="tlEyebrow">OUR WEDDING DAY</p>
     <div class="rule"><i></i></div>
-    <h2>Wedding Timeline</h2>
-    <p class="date-dots" style="margin-top:.2rem" data-cfg="dateDots">10 · 12 · 2026</p>
+    <h2 data-t="tlTitle">Wedding Timeline</h2>
+    <p class="date-dots" style="margin-top:.2rem" data-t="dateDots">22 · 11 · 2026</p>
     <ol class="tl" id="tl"></ol>
     <div class="rule" style="margin-top:2rem"><i></i></div>
-    <p class="sub">EVERY MOMENT · TOGETHER</p>
+    <p class="sub" data-t="tlSub">EVERY MOMENT · TOGETHER</p>
   </section>
 
   <div class="divider"><span class="light"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="12" cy="12" r="3.5"/><path d="M12 1.5v5M12 17.5v5M1.5 12h5M17.5 12h5M4.6 4.6l3.5 3.5M15.9 15.9l3.5 3.5M4.6 19.4l3.5-3.5M15.9 8.1l3.5-3.5"/></svg></div>
 
   <!-- ===== Location ===== -->
   <section id="location" class="reveal">
-    <p class="eyebrow">OUR LOCATION</p>
+    <p class="eyebrow" data-t="locEyebrow">OUR LOCATION</p>
     <div class="rule"><i></i></div>
-    <h2>Join Us Here</h2>
+    <h2 data-t="locTitle">Join Us Here</h2>
     <div id="venues"></div>
-    <p class="note">We can't wait to celebrate this beautiful evening with you.</p>
+    <p class="note" data-t="locNote">We can't wait to celebrate this beautiful evening with you.</p>
+  </section>
+
+  <div class="divider"><span class="light"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="12" cy="12" r="3.5"/><path d="M12 1.5v5M12 17.5v5M1.5 12h5M17.5 12h5M4.6 4.6l3.5 3.5M15.9 15.9l3.5 3.5M4.6 19.4l3.5-3.5M15.9 8.1l3.5-3.5"/></svg></div>
+
+  <!-- ===== Gallery ===== -->
+  <section id="gallery" class="reveal">
+    <p class="eyebrow" data-t="galEyebrow">MOMENTS</p>
+    <div class="rule"><i></i></div>
+    <h2 data-t="galTitle">Through the Arches</h2>
+    <div class="grid" id="grid"></div>
   </section>
 
   <div class="divider"><span class="light"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="12" cy="12" r="3.5"/><path d="M12 1.5v5M12 17.5v5M1.5 12h5M17.5 12h5M4.6 4.6l3.5 3.5M15.9 15.9l3.5 3.5M4.6 19.4l3.5-3.5M15.9 8.1l3.5-3.5"/></svg></div>
 
   <!-- ===== RSVP ===== -->
   <section id="rsvp" class="reveal">
-    <p class="eyebrow">RSVP</p>
+    <p class="eyebrow" data-t="rsvpEyebrow">RSVP</p>
     <div class="rule"><i></i></div>
+    <h2 data-t="rsvpTitle">Will You Join Us?</h2>
     <form class="form" id="rsvp-form" novalidate>
-      <label class="lbl" for="guest">YOUR NAME</label>
+      <label class="lbl" for="guest" data-t="yourName">YOUR NAME</label>
       <input type="text" id="guest" name="guest" autocomplete="name" required>
-      <p class="err" id="err-name">Please write your name.</p>
-
+      <p class="err" id="err-name" data-t="errName">Please write your name.</p>
       <fieldset>
-        <legend>WILL YOU BE ATTENDING OUR DAY ?</legend>
-        <label class="choice"><input type="radio" name="attend" value="yes" checked> YES</label>
-        <label class="choice"><input type="radio" name="attend" value="no"> NO</label>
+        <legend data-t="attendQ">WILL YOU BE ATTENDING OUR DAY ?</legend>
+        <label class="choice"><input type="radio" name="attend" value="yes" checked> <span data-t="yes">YES</span></label>
+        <label class="choice"><input type="radio" name="attend" value="no"> <span data-t="no">NO</span></label>
       </fieldset>
-
-      <label class="lbl" for="wish">WRITE YOUR CONGRATULATION</label>
+      <label class="lbl" for="wish" data-t="wishLbl">WRITE YOUR CONGRATULATION</label>
       <textarea id="wish" name="wish"></textarea>
-
-      <button class="send shine" type="submit">SEND</button>
+      <button class="send shine" type="submit" data-t="send">SEND</button>
     </form>
   </section>
 
@@ -329,16 +407,24 @@
 
   <!-- ===== Thank you ===== -->
   <section id="thanks" class="reveal">
-    <p class="eyebrow">WITH LOVE</p>
+    <p class="eyebrow" data-t="thanksEyebrow">WITH LOVE</p>
     <div class="rule"><i></i></div>
-    <h2>Thank You</h2>
-    <p class="names"><span data-cfg="groom">Khaled</span> &amp; <span data-cfg="bride">Basma</span></p>
-    <p class="msg">Thank you for being part of our special day. Your presence means more to us than words can say.</p>
-    <p class="date-dots" data-cfg="dateDots">10 · 12 · 2026</p>
+    <h2 data-t="thanksTitle">Thank You</h2>
+    <p class="names"><span data-n="groom">Arsanyous</span> &amp; <span data-n="bride">Silvia</span></p>
+    <p class="msg" data-t="thanksMsg">Thank you for being part of our special day. Your presence means more to us than words can say.</p>
+    <p class="date-dots" data-t="dateDots">22 · 11 · 2026</p>
   </section>
 
-  <footer>OUR STORY BEGINS HERE</footer>
+  <footer data-t="footer">OUR STORY BEGINS HERE</footer>
 </main>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+  <button class="close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <img id="lb-img" alt="">
+  <button class="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="counter" id="lb-counter"></div>
+</div>
 
 <button class="fab" id="play-btn" aria-label="Play music" aria-pressed="false">
   <svg class="play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
@@ -350,74 +436,164 @@
 
 <script>
 /* =====================================================================
-   PERSONALIZE HERE — everything on the page reads from this object.
+   PERSONALIZE HERE
    ===================================================================== */
 const CONFIG = {
-  groom: "Arsanyous",
-  bride: "Silvia",
-  groomFull: "Arsanyous Narouz",
-  brideFull: "Silvia Yakoub",
+  names: {
+    en: { groom: "Arsanyous", bride: "Silvia", groomFull: "Arsanyous Narouz", brideFull: "Silvia Yakoub" },
+    ar: { groom: "أرسانيوس", bride: "سيلفيا",  groomFull: "أرسانيوس ناروز",  brideFull: "سيلفيا يعقوب" },
+  },
 
-  // ISO date + time of the ceremony (countdown target). Keep the timezone offset.
   eventDate: "2026-11-22T18:00:00+02:00",
-  dateShort: "22.11.2026",
-  dateDots:  "22 · 11 · 2026",
 
   venues: [
     {
-      label:   "THE CEREMONY",
-      time:    "6:00 PM",
-      name:    "Blessed Virgin Mary Church & St. Anba Reweiss",
-      city:    "AHRAM GARDENS · GIZA",
-      address: "Ahram Gardens, Al Haram, Giza",
+      time: "6:00 PM", timeAr: "٦:٠٠ مساءً",
+      label:   { en: "THE CEREMONY", ar: "صلاة الإكليل" },
+      name:    { en: "Blessed Virgin Mary Church & St. Anba Reweiss", ar: "كنيسة السيدة العذراء مريم والأنبا رويس" },
+      city:    { en: "AHRAM GARDENS · GIZA", ar: "حدائق الأهرام · الجيزة" },
+      address: { en: "Ahram Gardens, Al Haram, Giza", ar: "حدائق الأهرام، الهرم، الجيزة" },
       mapsUrl: "https://maps.app.goo.gl/DYeedjDiHy2xKJd49",
     },
     {
-      label:   "THE RECEPTION",
-      time:    "7:30 PM",
-      name:    "Lagona Hall",
-      city:    "AL HARANEYAH · GIZA",
-      address: "Villa Ragaa El Geddawy, Al Haraneyah, Giza",
+      time: "7:30 PM", timeAr: "٧:٣٠ مساءً",
+      label:   { en: "THE RECEPTION", ar: "حفل الزفاف" },
+      name:    { en: "Lagona Hall", ar: "قاعة لاجونا" },
+      city:    { en: "AL HARANEYAH · GIZA", ar: "الحرانية · الجيزة" },
+      address: { en: "Villa Ragaa El Geddawy, Al Haraneyah, Giza", ar: "فيلا رجاء الجداوي، الحرانية، الجيزة" },
       mapsUrl: "https://maps.app.goo.gl/EjERYg94WK1cGPxo9",
     },
   ],
 
-  // WhatsApp number, international format, digits only (no +, no spaces).
-  whatsapp: "201222220432",
-
   timeline: [
-    { time: "6:00 PM", title: "Church Ceremony", key: true },
-    { time: "7:30 PM", title: "Reception at Lagona Hall", key: true },
+    { time: "6:00 PM", timeAr: "٦:٠٠ م", title: { en: "Church Ceremony", ar: "صلاة الإكليل بالكنيسة" }, key: true },
+    { time: "7:30 PM", timeAr: "٧:٣٠ م", title: { en: "Reception at Lagona Hall", ar: "حفل الزفاف بقاعة لاجونا" }, key: true },
   ],
 
+  whatsapp: "201222220432",
   music: "assets/music.mp3",
+
+  // Story slideshow (arch) and gallery grid. Files live in assets/photos.
+  slides:  ["p04", "p51", "p22", "p79", "p45"],
+  gallery: ["t07", "t10", "t15", "t28", "t74", "t34", "t55", "t61", "t73", "t80", "t69", "t04"],
+};
+
+const T = {
+  en: {
+    weddingOf: "THE WEDDING OF", dateShort: "22.11.2026", dateDots: "22 · 11 · 2026",
+    storyEyebrow: "OUR STORY", storyTitle: "Two Hearts, One Light",
+    storyText: "Between two arches of light, two hearts found their way to each other. In a church that has heard a thousand prayers, ours was answered: to walk this road together, hand in hand, from this day to forever.",
+    verse: "Love is patient, love is kind.", verseRef: "1 CORINTHIANS 13:4",
+    countEyebrow: "COUNTDOWN", countTitle: "Until Our Day", countSub: "THE MOMENT WE'VE BEEN WAITING FOR",
+    days: "DAYS", hours: "HOURS", minutes: "MINUTES", seconds: "SECONDS", countNote: "Every second brings us closer to forever.",
+    tlEyebrow: "OUR WEDDING DAY", tlTitle: "Wedding Timeline", tlSub: "EVERY MOMENT · TOGETHER",
+    locEyebrow: "OUR LOCATION", locTitle: "Join Us Here", locNote: "We can't wait to celebrate this beautiful evening with you.", openLoc: "OPEN LOCATION",
+    galEyebrow: "MOMENTS", galTitle: "Through the Arches",
+    rsvpEyebrow: "RSVP", rsvpTitle: "Will You Join Us?", yourName: "YOUR NAME", errName: "Please write your name.",
+    attendQ: "WILL YOU BE ATTENDING OUR DAY ?", yes: "YES", no: "NO", wishLbl: "WRITE YOUR CONGRATULATION", send: "SEND",
+    thanksEyebrow: "WITH LOVE", thanksTitle: "Thank You",
+    thanksMsg: "Thank you for being part of our special day. Your presence means more to us than words can say.",
+    footer: "OUR STORY BEGINS HERE",
+    waTitle: "RSVP — wedding of", waName: "Name", waAttend: "Attending", waYes: "Yes", waNo: "No",
+  },
+  ar: {
+    weddingOf: "زفاف", dateShort: "٢٢ نوفمبر ٢٠٢٦", dateDots: "٢٢ · ١١ · ٢٠٢٦",
+    storyEyebrow: "حكايتنا", storyTitle: "قلبان ونورٌ واحد",
+    storyText: "بين قوسين من نور، التقى قلبان وعرفا طريقهما إلى بعضهما. في كنيسة سمعت ألف صلاة، استُجيبت صلاتنا: أن نمضي هذا الطريق معًا، يدًا بيد، من هذا اليوم إلى الأبد.",
+    verse: "المحبة تتأنى وترفق", verseRef: "١ كورنثوس ١٣: ٤",
+    countEyebrow: "العد التنازلي", countTitle: "حتى يومنا الكبير", countSub: "اللحظة التي طالما انتظرناها",
+    days: "يوم", hours: "ساعة", minutes: "دقيقة", seconds: "ثانية", countNote: "كل ثانية تقرّبنا أكثر إلى الأبد.",
+    tlEyebrow: "يوم زفافنا", tlTitle: "برنامج اليوم", tlSub: "كل لحظة · معًا",
+    locEyebrow: "المكان", locTitle: "شاركونا فرحتنا هنا", locNote: "ننتظر بشوق أن نحتفل معكم بهذه الليلة الجميلة.", openLoc: "افتح الموقع",
+    galEyebrow: "لحظات", galTitle: "عبر الأقواس",
+    rsvpEyebrow: "تأكيد الحضور", rsvpTitle: "هل ستشاركوننا؟", yourName: "الاسم", errName: "من فضلك اكتب اسمك.",
+    attendQ: "هل ستحضرون يومنا؟", yes: "نعم", no: "لا", wishLbl: "اكتب تهنئتك", send: "إرسال",
+    thanksEyebrow: "بكل حب", thanksTitle: "شكرًا لكم",
+    thanksMsg: "شكرًا لأنكم جزء من يومنا المميز. وجودكم معنا يعني لنا أكثر مما تصفه الكلمات.",
+    footer: "هنا تبدأ حكايتنا",
+    waTitle: "تأكيد حضور — زفاف", waName: "الاسم", waAttend: "الحضور", waYes: "نعم", waNo: "لا",
+  },
 };
 /* ===================================================================== */
 
-document.querySelectorAll("[data-cfg]").forEach(el => {
-  const v = CONFIG[el.dataset.cfg]; if (v != null) el.textContent = v;
-});
-document.title = `${CONFIG.groom} & ${CONFIG.bride} — Wedding`;
-
-document.getElementById("venues").innerHTML = CONFIG.venues.map(v => `
-  <div class="venue-block">
-    <div class="rule"><i></i></div>
-    <p class="eyebrow venue-label">${v.label}</p>
-    <p class="venue-time">${v.time}</p>
-    <p class="venue">${v.name}</p>
-    <p class="city">${v.city}</p>
-    <p class="addr">${v.address}</p>
-    <a class="btn shine" href="${v.mapsUrl}" target="_blank" rel="noopener">OPEN LOCATION</a>
-  </div>`).join("");
-
+let lang = "en";
 const STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.6 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>';
-document.getElementById("tl").innerHTML = CONFIG.timeline.map(t =>
-  `<li${t.key ? ' class="key"' : ""}><time>${t.time}</time><i>${t.key ? STAR : ""}</i><span>${t.title}</span></li>`
-).join("");
+
+function render() {
+  const t = T[lang], n = CONFIG.names[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.title = `${n.groom} & ${n.bride} — ${lang === "ar" ? "زفاف" : "Wedding"}`;
+  document.querySelectorAll("[data-t]").forEach(el => { if (t[el.dataset.t] != null) el.textContent = t[el.dataset.t]; });
+  document.querySelectorAll("[data-n]").forEach(el => { el.textContent = n[el.dataset.n]; });
+  document.querySelectorAll("#lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+
+  document.getElementById("venues").innerHTML = CONFIG.venues.map(v => `
+    <div class="venue-block">
+      <div class="rule"><i></i></div>
+      <p class="eyebrow venue-label">${v.label[lang]}</p>
+      <p class="venue-time">${lang === "ar" ? v.timeAr : v.time}</p>
+      <p class="venue">${v.name[lang]}</p>
+      <p class="city">${v.city[lang]}</p>
+      <p class="addr">${v.address[lang]}</p>
+      <a class="btn shine" href="${v.mapsUrl}" target="_blank" rel="noopener">${t.openLoc}</a>
+    </div>`).join("");
+
+  document.getElementById("tl").innerHTML = CONFIG.timeline.map(x =>
+    `<li${x.key ? ' class="key"' : ""}><time>${lang === "ar" ? x.timeAr : x.time}</time><i>${x.key ? STAR : ""}</i><span>${x.title[lang]}</span></li>`
+  ).join("");
+
+  try { localStorage.setItem("lang", lang); } catch (e) {}
+}
+document.getElementById("lang").addEventListener("click", e => {
+  const b = e.target.closest("button[data-lang]"); if (!b || b.dataset.lang === lang) return;
+  lang = b.dataset.lang; render();
+});
+(function initLang() {
+  const q = new URLSearchParams(location.search).get("lang");
+  let saved = null; try { saved = localStorage.getItem("lang"); } catch (e) {}
+  if (q === "ar" || q === "en") lang = q; else if (saved === "ar" || saved === "en") lang = saved;
+  render();
+})();
+
+// Story slideshow
+const slidesEl = document.getElementById("slides");
+slidesEl.innerHTML = CONFIG.slides.map((id, i) => `<img src="assets/photos/${id}.jpg" alt="" ${i ? 'loading="lazy"' : ""}>`).join("");
+const slideImgs = [...slidesEl.children]; let cur = 0;
+slideImgs[0].classList.add("on");
+setInterval(() => {
+  slideImgs[cur].classList.remove("on"); cur = (cur + 1) % slideImgs.length;
+  slideImgs[cur].classList.add("on");
+}, 5000);
+
+// Gallery + lightbox
+const grid = document.getElementById("grid");
+grid.innerHTML = CONFIG.gallery.map((id, i) => `<button type="button" data-i="${i}" aria-label="Photo ${i + 1}"><img src="assets/photos/${id}.jpg" alt="" ${i > 5 ? 'loading="lazy"' : ""}></button>`).join("");
+const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img"), lbCount = document.getElementById("lb-counter");
+let lbIdx = 0;
+function showLb(i) {
+  lbIdx = (i + CONFIG.gallery.length) % CONFIG.gallery.length;
+  lbImg.src = `assets/photos/${CONFIG.gallery[lbIdx].replace("t", "p")}.jpg`;
+  lbCount.textContent = `${lbIdx + 1} / ${CONFIG.gallery.length}`;
+  lb.classList.add("open"); document.body.classList.add("locked");
+}
+function closeLb() { lb.classList.remove("open"); document.body.classList.remove("locked"); }
+grid.addEventListener("click", e => { const b = e.target.closest("button"); if (b) showLb(+b.dataset.i); });
+lb.querySelector(".close").addEventListener("click", closeLb);
+lb.querySelector(".prev").addEventListener("click", () => showLb(lbIdx - 1));
+lb.querySelector(".next").addEventListener("click", () => showLb(lbIdx + 1));
+lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+addEventListener("keydown", e => {
+  if (!lb.classList.contains("open")) return;
+  if (e.key === "Escape") closeLb(); if (e.key === "ArrowRight") showLb(lbIdx + 1); if (e.key === "ArrowLeft") showLb(lbIdx - 1);
+});
+let tx = null;
+lb.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener("touchend", e => { if (tx == null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) showLb(lbIdx + (dx < 0 ? 1 : -1)); tx = null; });
 
 // Countdown
 const target = new Date(CONFIG.eventDate).getTime();
-const pad = n => String(n).padStart(2, "0");
+const pad = v => String(v).padStart(2, "0");
 function tick() {
   let diff = Math.max(0, target - Date.now());
   const d = Math.floor(diff / 864e5); diff -= d * 864e5;
@@ -439,11 +615,8 @@ audio.src = CONFIG.music;
 function setPlaying(on) {
   playBtn.classList.toggle("on", on); musicBtn.classList.toggle("on", on);
   playBtn.setAttribute("aria-pressed", on); musicBtn.setAttribute("aria-pressed", on);
-  playBtn.setAttribute("aria-label", on ? "Pause music" : "Play music");
 }
-function toggleMusic() {
-  if (audio.paused) audio.play().catch(() => {}); else audio.pause();
-}
+function toggleMusic() { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); }
 playBtn.addEventListener("click", toggleMusic);
 musicBtn.addEventListener("click", toggleMusic);
 audio.addEventListener("pause", () => setPlaying(false));
@@ -464,7 +637,6 @@ function openInvite() {
   audio.play().catch(() => {});
   entryVideo.play().then(() => {
     entryVideo.addEventListener("ended", finishEntry, { once: true });
-    // Safety: if 'ended' never fires, release after duration + margin.
     setTimeout(finishEntry, (entryVideo.duration || 3) * 1000 + 400);
   }).catch(finishEntry);
 }
@@ -474,12 +646,13 @@ entry.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ")
 // Scroll reveal
 const io = new IntersectionObserver(entries => {
   entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
-}, { threshold: .15 });
+}, { threshold: .12 });
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
 // RSVP → WhatsApp
 document.getElementById("rsvp-form").addEventListener("submit", e => {
   e.preventDefault();
+  const t = T[lang], n = CONFIG.names[lang];
   const nameEl = document.getElementById("guest");
   const name = nameEl.value.trim();
   const err = document.getElementById("err-name");
@@ -488,9 +661,9 @@ document.getElementById("rsvp-form").addEventListener("submit", e => {
   const attending = document.querySelector('input[name="attend"]:checked').value === "yes";
   const wish = document.getElementById("wish").value.trim();
   const lines = [
-    `RSVP — ${CONFIG.groomFull} & ${CONFIG.brideFull}'s wedding`,
-    `Name: ${name}`,
-    `Attending: ${attending ? "Yes" : "No"}`,
+    `${t.waTitle} ${n.groomFull} & ${n.brideFull}`,
+    `${t.waName}: ${name}`,
+    `${t.waAttend}: ${attending ? t.waYes : t.waNo}`,
   ];
   if (wish) lines.push("", wish);
   window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
