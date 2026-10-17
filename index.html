@@ -50,6 +50,7 @@
 
   /* ---------- Stained-glass light (the one bold thing) ---------- */
   .light { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .light { will-change: transform; }
   .light i {
     position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); opacity: .55;
     mix-blend-mode: screen; animation: drift 22s ease-in-out infinite alternate;
@@ -121,6 +122,7 @@
   /* ---------- Hero ---------- */
   #hero { padding: 4.5rem 1.6rem 4rem; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
   .hero-arch { position: relative; width: min(78%, 340px); margin: 0 auto; aspect-ratio: 2 / 3; clip-path: url(#archClip); background: var(--navy-2); }
+  .hero-arch .px { position: absolute; inset: -12% 0; will-change: transform; }
   .hero-arch img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); animation: kb 16s ease-out forwards; }
   @keyframes kb { to { transform: scale(1) translateY(-1.5%); } }
   .hero-arch::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(18,26,43,.75)); }
@@ -142,7 +144,9 @@
   /* ---------- Story (editorial) ---------- */
   .diptych { position: relative; height: 420px; margin: 2.4rem 0 2rem; }
   .diptych figure { position: absolute; width: 56%; aspect-ratio: 2 / 3; overflow: hidden; background: var(--stone-2); box-shadow: 0 30px 50px -28px rgba(43,36,21,.6); }
-  .diptych figure img { width: 100%; height: 100%; object-fit: cover; }
+  .diptych figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s ease; }
+  .diptych figure img.on { opacity: 1; }
+  .diptych figure { will-change: transform; }
   .diptych .a { inset-inline-start: 0; top: 0; clip-path: url(#archClip); }
   .diptych .b { inset-inline-end: 0; top: 24%; width: 48%; }
   .diptych .b::after { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(201,162,74,.6); pointer-events: none; }
@@ -166,6 +170,7 @@
   .venues { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: 2rem; }
   .venue { position: relative; display: block; text-decoration: none; color: inherit; }
   .venue .media { position: relative; aspect-ratio: 2 / 3; overflow: hidden; clip-path: url(#archClip); background: var(--navy-2); }
+  .venue .media .px { position: absolute; inset: -8% 0; will-change: transform; }
   .venue .media img, .venue .media video { width: 100%; height: 100%; object-fit: cover; }
   .venue .media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,26,43,0) 40%, rgba(18,26,43,.85)); }
   .venue .time { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-family: var(--caps); color: var(--champagne); font-size: 1.1rem; letter-spacing: .12em; z-index: 1; }
@@ -216,7 +221,7 @@
 
   /* ---------- Thank you ---------- */
   #thanks { min-height: 80svh; display: flex; align-items: center; }
-  #thanks .bg { position: absolute; inset: 0; opacity: .22; }
+  #thanks .bg { position: absolute; inset: -15% 0; opacity: .22; will-change: transform; }
   #thanks .bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
   #thanks .names { font-size: clamp(2.6rem, 11vw, 3.6rem); color: var(--champagne); margin: .6rem 0 1.2rem; }
   #thanks .names .amp { font-size: .5em; color: var(--gold); }
@@ -229,6 +234,7 @@
     *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
     .reveal, .hero-seq > * { opacity: 1; transform: none; }
     .hero-arch img { transform: none; }
+    [data-px] { transform: none !important; }
   }
 </style>
 </head>
@@ -263,10 +269,10 @@
 
   <!-- ===== Hero ===== -->
   <section id="hero" class="dark">
-    <div class="light"><i></i><i></i><i></i><i></i></div>
+    <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap">
       <div style="position:relative">
-        <div class="hero-arch"><img src="assets/photos/p04.jpg" alt=""></div>
+        <div class="hero-arch"><div class="px" data-px="0.1"><img src="assets/photos/p04.jpg" alt=""></div></div>
         <svg class="hero-ring" viewBox="0 0 100 150" preserveAspectRatio="none" aria-hidden="true" style="top:-11px">
           <path d="M0,150 L0,45 C0,21 20,6 50,0 C80,6 100,21 100,45 L100,150"/>
         </svg>
@@ -281,14 +287,14 @@
 
   <!-- ===== Story ===== -->
   <section id="story" class="stone-bg">
-    <div class="light"><i></i><i></i><i></i><i></i></div>
+    <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="storyEyebrow">Our story</span>
       <h2 data-t="storyTitle">Two hearts, one light</h2>
       <div class="hair"></div>
       <div class="diptych">
-        <figure class="a"><img src="assets/photos/p22.jpg" alt=""></figure>
-        <figure class="b"><img src="assets/photos/p79.jpg" alt="" loading="lazy"></figure>
+        <figure class="a" id="dipA" data-px="-0.06"></figure>
+        <figure class="b" id="dipB" data-px="0.10"></figure>
       </div>
       <p class="story-text" data-t="storyText">Between two arches of light, two hearts found their way to each other. In a church that has heard a thousand prayers, ours was answered: to walk this road together, hand in hand, from this day to forever.</p>
       <p class="verse"><span data-t="verse">Love is patient, love is kind.</span><span class="caps" data-t="verseRef">1 Corinthians 13:4</span></p>
@@ -310,7 +316,7 @@
 
   <!-- ===== Countdown ===== -->
   <section id="countdown" class="dark center">
-    <div class="light"><i></i><i></i><i></i><i></i></div>
+    <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="countEyebrow">Countdown</span>
       <h2 data-t="countTitle">Until our day</h2>
@@ -327,7 +333,7 @@
 
   <!-- ===== Venues ===== -->
   <section id="venues-sec" class="stone-bg">
-    <div class="light"><i></i><i></i><i></i><i></i></div>
+    <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="locEyebrow">The day</span>
       <h2 data-t="locTitle">Where we say yes</h2>
@@ -339,7 +345,7 @@
 
   <!-- ===== Gallery ===== -->
   <section id="gallery" class="dark">
-    <div class="light"><i></i><i></i><i></i><i></i></div>
+    <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="galEyebrow">Moments</span>
       <h2 data-t="galTitle">Through the arches</h2>
@@ -351,7 +357,7 @@
 
   <!-- ===== RSVP ===== -->
   <section id="rsvp" class="stone-bg">
-    <div class="light"><i></i><i></i><i></i><i></i></div>
+    <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="rsvpEyebrow">RSVP</span>
       <h2 data-t="rsvpTitle">Will you join us?</h2>
@@ -376,7 +382,7 @@
 
   <!-- ===== Thank you ===== -->
   <section id="thanks" class="dark center">
-    <div class="bg"><img src="assets/photos/p45.jpg" alt="" loading="lazy"></div>
+    <div class="bg" data-px="0.2"><img src="assets/photos/p45.jpg" alt="" loading="lazy"></div>
     <div class="light"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal" style="width:100%">
       <span class="caps" data-t="thanksEyebrow">With love</span>
@@ -434,7 +440,9 @@ const CONFIG = {
   ],
   whatsapp: "201222220432",
   music: "assets/music.mp3",
-  gallery: ["t07", "t51", "t15", "t34", "t28", "t10", "t73", "t55", "t74", "t61", "t80", "t69"],
+  storyA: ["p22", "p07", "p34", "p66", "p50", "p28"],
+  storyB: ["p79", "p55", "p76", "p09", "p38", "p57"],
+  gallery: ["t07", "t51", "t15", "t34", "t28", "t10", "t73", "t55", "t74", "t61", "t80", "t69", "t02", "t09", "t24", "t38", "t50", "t57", "t66", "t76"],
 };
 
 const T = {
@@ -491,9 +499,9 @@ function render() {
   document.getElementById("venues").innerHTML = CONFIG.venues.map(v => `
     <div class="venue">
       <div class="media">
-        ${v.media.type === "video"
+        <div class="px" data-px="0.08">${v.media.type === "video"
           ? `<video autoplay muted loop playsinline preload="metadata" poster="${v.media.poster}"><source src="${v.media.src}" type="video/mp4"></video>`
-          : `<img src="${v.media.src}" alt="" loading="lazy">`}
+          : `<img src="${v.media.src}" alt="" loading="lazy">`}</div>
         <div class="time">${lang === "ar" ? v.timeAr : v.time}</div>
       </div>
       <span class="caps">${v.label[lang]}</span>
@@ -503,6 +511,7 @@ function render() {
     </div>`).join("");
   try { localStorage.setItem("lang", lang); } catch (e) {}
   watchVideos();
+  if (window.pxReady) refreshPx();
 }
 document.getElementById("bar").addEventListener("click", e => {
   const b = e.target.closest("button[data-lang]"); if (!b || b.dataset.lang === lang) return;
@@ -515,9 +524,33 @@ document.getElementById("bar").addEventListener("click", e => {
   render();
 })();
 
+// Story diptych: two stacks that crossfade on their own, offset from each other
+function stack(id, list, period, offset) {
+  const el = document.getElementById(id);
+  el.innerHTML = list.map((p, i) => `<img src="assets/photos/${p}.jpg" alt="" ${i ? 'loading="lazy"' : ""}${i ? "" : ' class="on"'}>`).join("");
+  const imgs = [...el.children]; let i = 0;
+  setTimeout(() => setInterval(() => { imgs[i].classList.remove("on"); i = (i + 1) % imgs.length; imgs[i].classList.add("on"); }, period), offset);
+}
+stack("dipA", CONFIG.storyA, 5200, 0);
+stack("dipB", CONFIG.storyB, 5200, 2600);
+
 // Gallery strip + lightbox
 const strip = document.getElementById("strip");
 strip.innerHTML = CONFIG.gallery.map((id, i) => `<button type="button" data-i="${i}" aria-label="Photo ${i + 1}"><img src="assets/photos/${id}.jpg" alt="" ${i > 3 ? 'loading="lazy"' : ""}></button>`).join("");
+// Strip auto-advance: steps every 3.2 s, pauses while touched or off-screen, loops
+(function autoStrip() {
+  const tiles = [...strip.children]; if (!tiles.length) return;
+  let idx = 0, holdUntil = 0, visible = false;
+  const hold = () => { holdUntil = Date.now() + 7000; };
+  ["pointerdown", "touchstart", "wheel"].forEach(ev => strip.addEventListener(ev, hold, { passive: true }));
+  new IntersectionObserver(en => { visible = en[0].isIntersecting; }, { threshold: .3 }).observe(strip);
+  setInterval(() => {
+    if (!visible || Date.now() < holdUntil || document.hidden || lb.classList.contains("open")) return;
+    idx = (idx + 1) % tiles.length;
+    tiles[idx].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, 3200);
+})();
+
 const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img"), lbCount = document.getElementById("lb-counter");
 let lbIdx = 0;
 function showLb(i) {
@@ -577,6 +610,29 @@ function openInvite() {
 }
 doors.addEventListener("click", openInvite);
 doors.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openInvite(); } });
+
+// Parallax: elements with data-px move by (distance from viewport centre) × factor
+let pxEls = [...document.querySelectorAll("[data-px]")];
+function refreshPx() { pxEls = [...document.querySelectorAll("[data-px]")]; parallax(); }
+window.pxReady = true;
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let pxTick = false;
+function parallax() {
+  pxTick = false;
+  const vh = innerHeight;
+  for (const el of pxEls) {
+    const host = el.closest("section") || el;
+    const r = host.getBoundingClientRect();
+    if (r.bottom < -vh || r.top > vh * 2) continue;
+    const d = (r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.px);
+    el.style.transform = `translate3d(0, ${d.toFixed(1)}px, 0)`;
+  }
+}
+if (!reduceMotion) {
+  addEventListener("scroll", () => { if (!pxTick) { pxTick = true; requestAnimationFrame(parallax); } }, { passive: true });
+  addEventListener("resize", parallax);
+  parallax();
+}
 
 // Scroll reveal
 const io = new IntersectionObserver(entries => {
