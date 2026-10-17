@@ -2,3 +2,6 @@
 .playwright-mcp/
 shot-*.jpg
 .DS_Store
+*.jpg
+*.png
+!assets/**
