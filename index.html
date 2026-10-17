@@ -108,6 +108,22 @@
   section { position: relative; padding: 5.5rem 1.6rem; overflow: hidden; }
   .dark { background: var(--navy); color: var(--champagne); }
   .stone-bg { background: var(--stone); color: var(--ink); }
+  /* Curtain: dark sections stick, stone sections glide over them */
+  .dark.stick { position: sticky; top: 0; z-index: 0; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+  .stone-bg { z-index: 1; box-shadow: 0 -30px 60px -30px rgba(0,0,0,.55); }
+  .dark .wrap { transform-origin: 50% 40%; }
+  .dark.stick .wrap { transform: scale(calc(1 - .08 * var(--cover, 0))) translateY(calc(-40px * var(--cover, 0))); opacity: calc(1 - .75 * var(--cover, 0)); transition: none; }
+  .dark.stick::after { content: ""; position: absolute; inset: 0; background: #000; opacity: calc(.55 * var(--cover, 0)); pointer-events: none; z-index: 2; }
+  /* Pointed-arch leading edge on stone sections */
+  .edge { position: absolute; left: 0; right: 0; top: -1px; height: 64px; width: 100%; color: var(--navy); pointer-events: none; z-index: 2; }
+  .edge path { fill: currentColor; }
+  .edge .line { fill: none; stroke: var(--gold); stroke-width: .6; vector-effect: non-scaling-stroke; opacity: .8; }
+  .stone-bg { padding-top: 7rem; }
+  /* Scroll progress line */
+  #progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 70; transform-origin: 0 50%; transform: scaleX(var(--scroll, 0)); background: linear-gradient(90deg, var(--gold-dim), var(--gold-soft)); pointer-events: none; }
+  html[dir=rtl] #progress { transform-origin: 100% 50%; }
+  .light { transform: rotate(calc(var(--scroll, 0) * 25deg)); transition: transform .1s linear; }
+  #thanks .names { transform: scale(calc(.85 + .15 * var(--enter, 1))); opacity: var(--enter, 1); }
   .wrap { position: relative; z-index: 1; }
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 1s ease, transform 1s ease; }
   .reveal.in { opacity: 1; transform: none; }
@@ -254,6 +270,9 @@
     .reveal, .hero-seq > * { opacity: 1; transform: none; }
     .hero-arch img { transform: none; }
     [data-px] { transform: none !important; }
+    .dark.stick { position: relative; min-height: 0; }
+    .dark.stick .wrap, .dark.stick::after, #thanks .names { transform: none; opacity: 1; }
+    .light { transform: none; }
     .rose .rings circle { stroke-dashoffset: 0; } .rose .petals, .rose .jewels circle { opacity: 1; transform: none; }
   }
 </style>
@@ -285,10 +304,11 @@
 
 <audio id="music" loop preload="auto"></audio>
 
+<div id="progress" aria-hidden="true"></div>
 <main class="page">
 
   <!-- ===== Hero ===== -->
-  <section id="hero" class="dark">
+  <section id="hero" class="dark stick">
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap">
       <div style="position:relative">
@@ -299,7 +319,7 @@
       </div>
       <div class="hero-text hero-seq">
         <span class="caps" data-t="weddingOf">The wedding of</span>
-        <h1 class="names"><span data-n="groom">Arsanyous</span><span class="amp">&amp;</span><span data-n="bride">Silvia</span></h1>
+        <h1 class="names" data-px="-0.06"><span data-n="groom">Arsanyous</span><span class="amp">&amp;</span><span data-n="bride">Silvia</span></h1>
         <p class="hero-date" data-t="dateLong">22 · November · 2026</p>
       </div>
     </div>
@@ -307,10 +327,14 @@
 
   <!-- ===== Story ===== -->
   <section id="story" class="stone-bg">
+    <svg class="edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 H100 V10 H68 C68,2.6 58,0.8 50,0.5 C42,0.8 32,2.6 32,10 H0 Z"/>
+      <path class="line" d="M32,10 C32,2.6 42,0.8 50,0.5 C58,0.8 68,2.6 68,10"/>
+    </svg>
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="storyEyebrow">Our story</span>
-      <h2 data-t="storyTitle">Two hearts, one light</h2>
+      <h2 data-px="-0.015" data-t="storyTitle">Two hearts, one light</h2>
       <div class="hair"></div>
       <div class="diptych">
         <figure class="a" id="dipA" data-px="-0.06"></figure>
@@ -339,9 +363,9 @@
   </section>
 
   <!-- ===== Countdown ===== -->
-  <section id="countdown" class="dark center">
+  <section id="countdown" class="dark stick center">
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
-    <div class="wrap reveal">
+    <div class="wrap">
       <span class="caps" data-t="countEyebrow">Countdown</span>
       <h2 data-t="countTitle">Until our day</h2>
       <div class="hair"></div>
@@ -357,10 +381,14 @@
 
   <!-- ===== Venues ===== -->
   <section id="venues-sec" class="stone-bg">
+    <svg class="edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 H100 V10 H68 C68,2.6 58,0.8 50,0.5 C42,0.8 32,2.6 32,10 H0 Z"/>
+      <path class="line" d="M32,10 C32,2.6 42,0.8 50,0.5 C58,0.8 68,2.6 68,10"/>
+    </svg>
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="locEyebrow">The day</span>
-      <h2 data-t="locTitle">Where we say yes</h2>
+      <h2 data-px="-0.015" data-t="locTitle">Where we say yes</h2>
       <div class="hair"></div>
       <div class="venues" id="venues"></div>
       <p class="note" data-t="locNote">We can't wait to celebrate this evening with you.</p>
@@ -368,9 +396,9 @@
   </section>
 
   <!-- ===== Gallery ===== -->
-  <section id="gallery" class="dark">
+  <section id="gallery" class="dark stick">
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
-    <div class="wrap reveal">
+    <div class="wrap">
       <span class="caps" data-t="galEyebrow">Moments</span>
       <h2 data-t="galTitle">Through the arches</h2>
       <div class="hair"></div>
@@ -381,10 +409,14 @@
 
   <!-- ===== RSVP ===== -->
   <section id="rsvp" class="stone-bg">
+    <svg class="edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 H100 V10 H68 C68,2.6 58,0.8 50,0.5 C42,0.8 32,2.6 32,10 H0 Z"/>
+      <path class="line" d="M32,10 C32,2.6 42,0.8 50,0.5 C58,0.8 68,2.6 68,10"/>
+    </svg>
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
       <span class="caps" data-t="rsvpEyebrow">RSVP</span>
-      <h2 data-t="rsvpTitle">Will you join us?</h2>
+      <h2 data-px="-0.015" data-t="rsvpTitle">Will you join us?</h2>
       <div class="hair"></div>
       <form class="form" id="rsvp-form" novalidate>
         <label class="lbl" for="guest" data-t="yourName">Your name</label>
@@ -641,9 +673,20 @@ function refreshPx() { pxEls = [...document.querySelectorAll("[data-px]")]; para
 window.pxReady = true;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let pxTick = false;
+const stickSecs = [...document.querySelectorAll("section.dark.stick")];
+const thanksSec = document.getElementById("thanks");
 function parallax() {
   pxTick = false;
   const vh = innerHeight;
+  const doc = document.documentElement;
+  doc.style.setProperty("--scroll", (scrollY / Math.max(1, doc.scrollHeight - vh)).toFixed(4));
+  for (const sec of stickSecs) {
+    const next = sec.nextElementSibling; if (!next) continue;
+    const top = next.getBoundingClientRect().top;
+    const cover = Math.min(1, Math.max(0, 1 - top / vh));
+    sec.style.setProperty("--cover", cover.toFixed(3));
+  }
+  { const r = thanksSec.getBoundingClientRect(); const enter = Math.min(1, Math.max(0, (vh - r.top) / (vh * .6))); thanksSec.style.setProperty("--enter", enter.toFixed(3)); }
   for (const el of pxEls) {
     const host = el.closest("section") || el;
     const r = host.getBoundingClientRect();
