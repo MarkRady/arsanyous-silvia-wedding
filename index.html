@@ -115,10 +115,11 @@
   .dark.stick .wrap { transform: scale(calc(1 - .08 * var(--cover, 0))) translateY(calc(-40px * var(--cover, 0))); opacity: calc(1 - .75 * var(--cover, 0)); transition: none; }
   .dark.stick::after { content: ""; position: absolute; inset: 0; background: #000; opacity: calc(.55 * var(--cover, 0)); pointer-events: none; z-index: 2; }
   /* Pointed-arch leading edge on stone sections */
-  .edge { position: absolute; left: 0; right: 0; top: -1px; height: 64px; width: 100%; color: var(--navy); pointer-events: none; z-index: 2; }
+  .edge { position: absolute; left: 0; right: 0; top: -1px; height: 96px; width: 100%; color: var(--navy); pointer-events: none; z-index: 2; }
   .edge path { fill: currentColor; }
   .edge .line { fill: none; stroke: var(--gold); stroke-width: .6; vector-effect: non-scaling-stroke; opacity: .8; }
-  .stone-bg { padding-top: 7rem; }
+  .stone-bg { padding-top: 8.5rem; }
+  .cross { position: absolute; left: 50%; top: 6px; transform: translateX(-50%); width: 28px; height: 37px; z-index: 3; color: var(--gold); filter: drop-shadow(0 0 6px rgba(201,162,74,.55)); pointer-events: none; }
   /* Scroll progress line */
   #progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 70; transform-origin: 0 50%; transform: scaleX(var(--scroll, 0)); background: linear-gradient(90deg, var(--gold-dim), var(--gold-soft)); pointer-events: none; }
   html[dir=rtl] #progress { transform-origin: 100% 50%; }
@@ -328,8 +329,17 @@
   <!-- ===== Story ===== -->
   <section id="story" class="stone-bg">
     <svg class="edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,0 H100 V10 H68 C68,2.6 58,0.8 50,0.5 C42,0.8 32,2.6 32,10 H0 Z"/>
-      <path class="line" d="M32,10 C32,2.6 42,0.8 50,0.5 C58,0.8 68,2.6 68,10"/>
+      <path d="M0,0 H100 V10 H68 C68,6.4 58,4.7 50,4.4 C42,4.7 32,6.4 32,10 H0 Z"/>
+      <path class="line" d="M32,10 C32,6.4 42,4.7 50,4.4 C58,4.7 68,6.4 68,10"/>
+    </svg>
+    <svg class="cross" viewBox="0 0 24 32" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 3v26M4 12h16"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="12" cy="3" r="1.8"/><circle cx="4" cy="12" r="1.8"/><circle cx="20" cy="12" r="1.8"/>
+        <circle cx="12" cy="12" r="2.4"/>
+      </g>
     </svg>
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
@@ -382,8 +392,17 @@
   <!-- ===== Venues ===== -->
   <section id="venues-sec" class="stone-bg">
     <svg class="edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,0 H100 V10 H68 C68,2.6 58,0.8 50,0.5 C42,0.8 32,2.6 32,10 H0 Z"/>
-      <path class="line" d="M32,10 C32,2.6 42,0.8 50,0.5 C58,0.8 68,2.6 68,10"/>
+      <path d="M0,0 H100 V10 H68 C68,6.4 58,4.7 50,4.4 C42,4.7 32,6.4 32,10 H0 Z"/>
+      <path class="line" d="M32,10 C32,6.4 42,4.7 50,4.4 C58,4.7 68,6.4 68,10"/>
+    </svg>
+    <svg class="cross" viewBox="0 0 24 32" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 3v26M4 12h16"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="12" cy="3" r="1.8"/><circle cx="4" cy="12" r="1.8"/><circle cx="20" cy="12" r="1.8"/>
+        <circle cx="12" cy="12" r="2.4"/>
+      </g>
     </svg>
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
@@ -410,8 +429,17 @@
   <!-- ===== RSVP ===== -->
   <section id="rsvp" class="stone-bg">
     <svg class="edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,0 H100 V10 H68 C68,2.6 58,0.8 50,0.5 C42,0.8 32,2.6 32,10 H0 Z"/>
-      <path class="line" d="M32,10 C32,2.6 42,0.8 50,0.5 C58,0.8 68,2.6 68,10"/>
+      <path d="M0,0 H100 V10 H68 C68,6.4 58,4.7 50,4.4 C42,4.7 32,6.4 32,10 H0 Z"/>
+      <path class="line" d="M32,10 C32,6.4 42,4.7 50,4.4 C58,4.7 68,6.4 68,10"/>
+    </svg>
+    <svg class="cross" viewBox="0 0 24 32" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 3v26M4 12h16"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="12" cy="3" r="1.8"/><circle cx="4" cy="12" r="1.8"/><circle cx="20" cy="12" r="1.8"/>
+        <circle cx="12" cy="12" r="2.4"/>
+      </g>
     </svg>
     <div class="light" data-px="-0.08"><i></i><i></i><i></i><i></i></div>
     <div class="wrap reveal">
